@@ -40,6 +40,7 @@ if(isset($_GET["email"])){
 
 if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["phone_number"]) && isset($_POST["password"])) {
     User::insert($mysqli, $_POST["name"], $_POST["email"], $_POST["phone_number"], $_POST["password"]);
+    return;
 }
 
 echo json_encode(getAllUsers($mysqli));
