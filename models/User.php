@@ -25,11 +25,11 @@ class User extends Model {
     }
 
     public function insert (mysqli $mysqli) {
-        $sql = sprintf("INSERT INTO %s (name, email, phone_number, password) VALUES (%s, %s, %s, %s)",
-        static::$table, $this->name, $this->email, $this->phone_number, $this->password);
+        $sql = sprintf("INSERT INTO %s (name, email, phone_number, password) VALUES (?, ?, ?, ?)",
+        static::$table);
     
         $query = $mysqli->prepare($sql);
-        $query->bind_param("ssss", $name, $email, $phone_number, $password);
+        $query->bind_param("ssss", $this->name, $this->email, $this->phone_number, $this->password);
         $query->execute();
     }
 }
