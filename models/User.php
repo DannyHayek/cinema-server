@@ -23,4 +23,13 @@ class User extends Model {
     public function toArray() {
         return [$this->id, $this->name, $this->email, $this->phone_number, $this->password];
     }
+
+    public function insert (mysqli $mysqli) {
+        $sql = sprintf("INSERT INTO %s (name, email, phone_number, password) VALUES (%s, %s, %s, %s)",
+        static::$table, $this->name, $this->email, $this->phone_number, $this->password);
+    
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("ssss", $name, $email, $phone_number, $password);
+        $query->execute();
+    }
 }

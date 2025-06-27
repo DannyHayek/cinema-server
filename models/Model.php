@@ -31,5 +31,8 @@ abstract class Model {
 
         return $objects;
     }
+
+    abstract public function insert (mysqli $mysqli);
+
 }
 
