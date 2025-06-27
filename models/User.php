@@ -24,12 +24,12 @@ class User extends Model {
         return [$this->id, $this->name, $this->email, $this->phone_number, $this->password];
     }
 
-    public function insert (mysqli $mysqli) {
+    public static function insert (mysqli $mysqli, string $name = "", string $email = "", string $phone_number = "", string $password = "") {
         $sql = sprintf("INSERT INTO %s (name, email, phone_number, password) VALUES (?, ?, ?, ?)",
         static::$table);
     
         $query = $mysqli->prepare($sql);
-        $query->bind_param("ssss", $this->name, $this->email, $this->phone_number, $this->password);
+        $query->bind_param("ssss", $name, $email, $phone_number, $password);
         $query->execute();
     }
 }

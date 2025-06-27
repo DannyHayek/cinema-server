@@ -32,7 +32,7 @@ abstract class Model {
         return $objects;
     }
 
-    abstract public function insert (mysqli $mysqli);
+    abstract public static function insert (mysqli $mysqli);
 
 }
 
