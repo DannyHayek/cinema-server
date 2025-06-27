@@ -8,21 +8,47 @@ require("../connection/connection.php");
 $status = http_response_code(200);
 $reponse["status"] = [$status];
 
-if(!isset($_GET["id"])) {
-    $users = User::selectAll($mysqli);
+if(isset($_GET["id"])) {
+    $id = $_GET["id"];
+    $user = User::select($mysqli, $id);
 
-    $response["users"] = [];
-
-    foreach($users as $u) {
-        $response["users"][] = $u->toArray();
+    if ($user == null) {
+        return null;
     }
+
+    $response["user"] = $user->toArray();
 
     echo json_encode($response);
     return;
 }
 
-$id = $_GET["id"];
-$user = User::select($mysqli, $id);
-$response["user"] = $user->toArray();
+if(isset($_GET["email"])){
+    $users = getAllUsers($mysqli);
+    $email = $_GET["email"];
+    $response["users"] = "";
 
-echo json_encode($response);
+    foreach($users["users"] as $u) {
+
+       if ($u[2] == $email) {
+            echo json_encode($u);
+            return;
+       }
+    }
+
+    return;
+}
+
+echo json_encode(getAllUsers($mysqli));
+
+function getAllUsers ($mysqli) {
+    $users = User::selectAll($mysqli);
+
+    $response["users"] = [];
+
+    foreach($users as $u) {
+        // echo json_encode($u);
+        $response["users"][] = $u->toArray();
+    }
+
+    return $response;
+}
