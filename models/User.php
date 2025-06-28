@@ -21,8 +21,19 @@ class User extends Model {
         $this->email = $data["email"];
         $this->phone_number = $data["phone_number"];
         $this->password = $data["password"];
-        $this->age = $data["age"];
-        $this->genre_id = $data["favorite_genre_id"];
+
+        if ($data["age"] == null) {
+            $this->age = 0;
+        } else {
+            $this->age = $data["age"];
+        }
+
+        if ($data["favorite_genre_id"] == null) {
+            $this->genre_id = 0;
+        } else {
+            $this->genre_id = $data["favorite_genre_id"];
+        }
+        
     }
 
     public function toArray() {
@@ -30,7 +41,15 @@ class User extends Model {
     }
 
     public static function insert (mysqli $mysqli, string $name = "", string $email = "", string $phone_number = "", string $password = "", int $age = 0, int $genre_id = 0) {
-        $sql = sprintf("INSERT INTO %s (name, email, phone_number, password) VALUES (?, ?, ?, ?, ?, ?)",
+        if ($age == 0) {
+            $age = null;
+        }
+
+        if ($genre_id == 0) {
+            $genre_id = null;
+        }
+
+        $sql = sprintf("INSERT INTO %s (name, email, phone_number, password, age, favorite_genre_id) VALUES (?, ?, ?, ?, ?, ?)",
         static::$table);
     
         $query = $mysqli->prepare($sql);
