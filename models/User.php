@@ -34,7 +34,7 @@ class User extends Model {
         static::$table);
     
         $query = $mysqli->prepare($sql);
-        $query->bind_param("ssss", $name, $email, $phone_number, $password, $age, $genre_id);
+        $query->bind_param("ssssii", $name, $email, $phone_number, $password, $age, $genre_id);
         $query->execute();
     }
 }
