@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 $db_host = "localhost";
 $db_name = "cinema_db";
 $db_user = "root";

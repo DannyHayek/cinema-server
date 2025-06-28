@@ -38,8 +38,8 @@ if(isset($_GET["email"])){
     return;
 }
 
-if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["phone_number"]) && isset($_POST["password"])) {
-    User::insert($mysqli, $_POST["name"], $_POST["email"], $_POST["phone_number"], $_POST["password"]);
+if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["phone_number"]) && isset($_POST["password"]) && isset($_POST["favGenre"])) {
+    User::insert($mysqli, $_POST["name"], $_POST["email"], $_POST["phone_number"], $_POST["password"], $_POST["age"], $_POST["favGenre"]);
     return;
 }
 
