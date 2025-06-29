@@ -55,38 +55,13 @@ if(isset($_GET["id"])) {
     return;
 }
 
-if(isset($_GET["name"])){
-    $movies = getAllUsers($mysqli);
-    $name = $_GET["name"];
-    $response["movies"] = "";
+$movies = Movie::selectAll($mysqli);
 
-    foreach($movies["users"] as $m) {
+$response["movies"] = [];
 
-       if ($m[1] == $name) {
-            echo json_encode($m);
-            return;
-       }
-    }
-
-    return;
+foreach($movies as $m) {
+    // echo json_encode($u);
+    $response["movies"][] = $m->toArray();
 }
 
-if(isset($_POST["name"]) && isset($_POST["synopsis"]) && isset($_POST["length"]) && isset($_POST["age_rating"]) && isset($_POST["trailer_link"])) {
-    Movie::insert($mysqli, $_POST["name"], $_POST["synopsis"], $_POST["length"], $_POST["age_rating"], $_POST["trailer_link"]);
-    return;
-}
-
-echo json_encode(getAllMovies($mysqli));
-
-function getAllMovies ($mysqli) {
-    $movies = Movie::selectAll($mysqli);
-
-    $response["movies"] = [];
-
-    foreach($movies as $m) {
-        // echo json_encode($u);
-        $response["movies"][] = $m->toArray();
-    }
-
-    return $response;
-}
+echo json_encode($response);
