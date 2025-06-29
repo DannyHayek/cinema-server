@@ -18,7 +18,7 @@ try{
 
     $user = new User($data);
 
-    $user->delete($mysqli);
+    $user->delete($mysqli, $data["id"]);
 
     echo "User deleted successfully";
 

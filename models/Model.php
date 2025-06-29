@@ -36,6 +36,12 @@ abstract class Model {
 
     abstract public function update (mysqli $mysqli);
 
-    abstract public function delete (mysqli $mysqli);
+    public function delete (mysqli $mysqli, int $id) {
+        $sql = sprintf("DELETE FROM %s WHERE %s = ?", static::$table, static::$primary_key);
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("i", $id);
+        $query->execute();
+    }
 }
 

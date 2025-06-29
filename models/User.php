@@ -65,12 +65,4 @@ class User extends Model {
         $query->execute();
     }
 
-    public function delete (mysqli $mysqli) {
-        $sql = sprintf("DELETE FROM %s WHERE id = ?", static::$table);
-
-        $query = $mysqli->prepare($sql);
-        $query->bind_param("i", $this->id);
-        $query->execute();
-    }
-
 }
