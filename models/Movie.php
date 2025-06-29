@@ -28,8 +28,13 @@ class Movie extends Model {
         return [$this->id, $this->name, $this->synopsis, $this->length, $this->age_rating, $this->trailer_link];
     }
 
-    public static function insert (mysqli $mysqli) {
-        //echo
+    public static function insert (mysqli $mysqli, string $name = "", string $synopsis = "", int $length = 0, string $age_rating = "", string $trailer_link = "") {
+        $sql = sprintf("INSERT INTO %s (name, synopsis, length, age_rating, trailer_link) VALUES (?, ?, ?, ?, ?)",
+        static::$table);
+    
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("ssiss", $name, $synopsis, $length, $age_rating, $trailer_link);
+        $query->execute();
     }
 
     public function update (mysqli $mysqli) {
@@ -39,15 +44,4 @@ class Movie extends Model {
     public function delete (mysqli $mysqli) {
         //echo
     }
-
-
-    // public static function insert (mysqli $mysqli, string $name = "", string $synopsis = "", string $age_rating = "", string $password = "", int $age = 0, int $genre_id = 0) {
-
-    //     $sql = sprintf("INSERT INTO %s (name, email, phone_number, password, age, favorite_genre_id) VALUES (?, ?, ?, ?, ?, ?)",
-    //     static::$table);
-    
-    //     $query = $mysqli->prepare($sql);
-    //     $query->bind_param("ssssii", $name, $email, $phone_number, $password, $age, $genre_id);
-    //     $query->execute();
-    // }
 }
