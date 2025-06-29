@@ -36,5 +36,6 @@ abstract class Model {
 
     abstract public function update (mysqli $mysqli);
 
+    abstract public function delete (mysqli $mysqli);
 }
 

@@ -64,4 +64,13 @@ class User extends Model {
         $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
         $query->execute();
     }
+
+    public function delete (mysqli $mysqli) {
+        $sql = sprintf("DELETE FROM %s WHERE id = ?", static::$table);
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("i", $this->id);
+        $query->execute();
+    }
+
 }
