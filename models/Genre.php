@@ -14,6 +14,10 @@ class Genre extends Model {
         $this->name = $data["name"];
     }
 
+    public function toArray() {
+        return [$this->id, $this->name];
+    }
+
     public static function insert(mysqli $mysqli){
         //This function will not be used for genres
     }

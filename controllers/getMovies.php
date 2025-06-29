@@ -13,16 +13,24 @@ $reponse["status"] = [$status];
 if(isset($_GET["id"])) {
     $id = $_GET["id"];
     $movie = Movie::select($mysqli, $id);
-    $genres = MovieGenre::selectAll($mysqli, $id);
-
+    $genresRaw = MovieGenre::selectAll($mysqli, $id);
+    $genreID = [];
+    $genreNames = [];
+    
     if ($movie == null) {
         return null;
     }
-    
+
     $response["movie"] = $movie->toArray();
-    foreach($genres as $g) {
-        $response["genres"][] = $g->toArray();
+    foreach($genresRaw as $g) {
+        $genreID[] = $g->toArray();
     }
+
+    foreach($genreID as $g) {
+        $genreNames[] = Genre::select($mysqli, $g[1])->toArray();
+    }
+
+    $response["genre"] = $genreNames;
 
     echo json_encode($response);
     return;
