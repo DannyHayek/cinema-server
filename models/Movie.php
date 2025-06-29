@@ -44,4 +44,8 @@ class Movie extends Model {
         $query->bind_param("ssissi", $this->name, $this->synopsis, $this->length, $this->age_rating, $this->trailer_link, $this->id);
         $query->execute();
     }
+
+    // public static function getGenre (mysqli $mysqli) {
+
+    // }
 }

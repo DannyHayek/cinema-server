@@ -2,6 +2,8 @@
 
 require("../models/Model.php");
 require("../models/Movie.php");
+require("../models/Genre.php");
+require("../models/MovieGenre.php");
 require("../connection/connection.php");
 
 
@@ -11,12 +13,16 @@ $reponse["status"] = [$status];
 if(isset($_GET["id"])) {
     $id = $_GET["id"];
     $movie = Movie::select($mysqli, $id);
+    $genres = MovieGenre::selectAll($mysqli, $id);
 
     if ($movie == null) {
         return null;
     }
-
+    
     $response["movie"] = $movie->toArray();
+    foreach($genres as $g) {
+        $response["genres"][] = $g->toArray();
+    }
 
     echo json_encode($response);
     return;
