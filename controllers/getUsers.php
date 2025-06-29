@@ -2,6 +2,7 @@
 
 require("../models/Model.php");
 require("../models/User.php");
+require("../models/Genre.php");
 require("../connection/connection.php");
 
 
@@ -30,6 +31,8 @@ if(isset($_GET["email"])){
     foreach($users["users"] as $u) {
 
        if ($u[2] == $email) {
+            $favGenre = Genre::select($mysqli, $u[6]);
+            $u[6] = $favGenre->toArray()[1];
             echo json_encode($u);
             return;
        }
