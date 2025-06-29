@@ -18,7 +18,7 @@ if(isset($_GET["id"])) {
 
     $response["movie"] = $movie->toArray();
 
-    echo json_encode($movie);
+    echo json_encode($response);
     return;
 }
 

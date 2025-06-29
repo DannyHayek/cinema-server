@@ -56,4 +56,12 @@ class User extends Model {
         $query->bind_param("ssssii", $name, $email, $phone_number, $password, $age, $genre_id);
         $query->execute();
     }
+
+    public function update (mysqli $mysqli) {
+        $sql = sprintf("UPDATE %s SET name = ?, email = ?, phone_number = ?, password = ?, age = ?, favorite_genre_id = ? WHERE id = ?", static::$table);
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
+        $query->execute();
+    }
 }

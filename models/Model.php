@@ -34,5 +34,7 @@ abstract class Model {
 
     abstract public static function insert (mysqli $mysqli);
 
+    abstract public function update (mysqli $mysqli);
+
 }
 

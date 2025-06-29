@@ -32,6 +32,10 @@ class Movie extends Model {
         //echo
     }
 
+    public function update (mysqli $mysqli) {
+        //echo
+    }
+
     // public static function insert (mysqli $mysqli, string $name = "", string $synopsis = "", string $age_rating = "", string $password = "", int $age = 0, int $genre_id = 0) {
 
     //     $sql = sprintf("INSERT INTO %s (name, email, phone_number, password, age, favorite_genre_id) VALUES (?, ?, ?, ?, ?, ?)",
