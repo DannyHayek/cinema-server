@@ -32,6 +32,7 @@ if(isset($_GET["email"])){
 
        if ($u[2] == $email) {
             $favGenre = Genre::select($mysqli, $u[6]);
+            $u[7] = $u[6];
             $u[6] = $favGenre->toArray()[1];
             echo json_encode($u);
             return;
