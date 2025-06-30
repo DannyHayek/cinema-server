@@ -4,7 +4,7 @@ abstract class Model {
     protected static string $table;
     protected static string $primary_key = "id";
 
-    protected static string $question_marks;
+    protected string $question_marks;
     protected static string $params;
     protected static string $bind;
 
@@ -71,7 +71,7 @@ abstract class Model {
         }
 
         $sql = sprintf("INSERT INTO %s VALUES (%s)",
-        static::$table, static::$question_marks);
+        static::$table, $question_marks);
     
         $query = $mysqli->prepare($sql);
         $query->bind_param(static::$bind, ...$params);

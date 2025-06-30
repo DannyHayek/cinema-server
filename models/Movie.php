@@ -13,7 +13,6 @@ class Movie extends Model {
     private string $trailer_link;
     private string $genre;
 
-    protected static string $question_marks = "?, ?, ?, ?, ?, ?, ?";
     protected static string $attributes = "name, synopsis, length, age_rating, trailer_link";
     protected static string $params;
     protected static string $bind = "ississs";
