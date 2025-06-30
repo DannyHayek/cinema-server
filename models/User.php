@@ -44,12 +44,12 @@ class User extends Model {
     }
 
 
-    // public function update (mysqli $mysqli) {
-    //     $sql = sprintf("UPDATE %s SET name = ?, email = ?, phone_number = ?, password = ?, age = ?, favorite_genre_id = ? WHERE id = ?", static::$table);
+    public function update (mysqli $mysqli) {
+        $sql = sprintf("UPDATE %s SET name = ?, email = ?, phone_number = ?, password = ?, age = ?, favorite_genre_id = ? WHERE id = ?", static::$table);
 
-    //     $query = $mysqli->prepare($sql);
-    //     $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
-    //     $query->execute();
-    // }
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
+        $query->execute();
+    }
 
 }

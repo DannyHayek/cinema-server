@@ -78,14 +78,14 @@ abstract class Model {
         $query->execute();
     }
 
-    public function update (mysqli $mysqli) {
-        // $sql = sprintf("UPDATE %s SET name = ?, email = ?, phone_number = ?, password = ?, age = ?, favorite_genre_id = ? WHERE %s = ?",
-        // static::$table, static::$primary_key);
+    // public function update (mysqli $mysqli) {
+    //     $sql = sprintf("UPDATE %s SET name = ?, email = ?, phone_number = ?, password = ?, age = ?, favorite_genre_id = ? WHERE %s = ?",
+    //     static::$table, static::$primary_key);
 
-        // $query = $mysqli->prepare($sql);
-        // $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
-        // $query->execute();
-    }
+    //     $query = $mysqli->prepare($sql);
+    //     $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
+    //     $query->execute();
+    // }
 
     public static function delete (mysqli $mysqli, int $id) {
         $sql = sprintf("DELETE FROM %s WHERE %s = ?", static::$table, static::$primary_key);
