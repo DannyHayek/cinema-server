@@ -2,6 +2,7 @@
 
 require("../models/Model.php");
 require("../models/User.php");
+require("../models/Genre.php");
 require("../connection/connection.php");
 
 
@@ -30,16 +31,14 @@ if(isset($_GET["email"])){
     foreach($users["users"] as $u) {
 
        if ($u[2] == $email) {
+            $favGenre = Genre::select($mysqli, $u[6]);
+            $u[7] = $u[6];
+            $u[6] = $favGenre->toArray()[1];
             echo json_encode($u);
             return;
        }
     }
 
-    return;
-}
-
-if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["phone_number"]) && isset($_POST["password"])) {
-    User::insert($mysqli, $_POST["name"], $_POST["email"], $_POST["phone_number"], $_POST["password"]);
     return;
 }
 
