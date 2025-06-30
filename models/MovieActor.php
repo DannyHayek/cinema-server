@@ -19,10 +19,6 @@ class MovieActor extends Model {
         return [$this->movies_id, $this->actors_id];
     }
 
-    public static function insert(mysqli $mysqli){
-        //This function will not be used for genres
-    }
-
     public function update(mysqli $mysqli){
         //This function will not be used for this table
     }

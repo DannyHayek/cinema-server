@@ -18,10 +18,6 @@ class Actor extends Model {
         return [$this->id, $this->name];
     }
 
-    public static function insert(mysqli $mysqli){
-        //This function will not be used for actors
-    }
-
     public function update(mysqli $mysqli){
         //This function will not be used for this table
     }

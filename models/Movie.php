@@ -13,6 +13,11 @@ class Movie extends Model {
     private string $trailer_link;
     private string $genre;
 
+    protected static string $question_marks = "?, ?, ?, ?, ?, ?, ?";
+    protected static string $attributes = "name, synopsis, length, age_rating, trailer_link";
+    protected static string $params;
+    protected static string $bind = "ississs";
+
 
     public function __construct(array $data)
     {
@@ -28,15 +33,6 @@ class Movie extends Model {
         return [$this->id, $this->name, $this->synopsis, $this->length, $this->age_rating, $this->trailer_link];
     }
 
-    public static function insert (mysqli $mysqli, string $name = "", string $synopsis = "", int $length = 0, string $age_rating = "", string $trailer_link = "") {
-        $sql = sprintf("INSERT INTO %s (name, synopsis, length, age_rating, trailer_link) VALUES (?, ?, ?, ?, ?)",
-        static::$table);
-    
-        $query = $mysqli->prepare($sql);
-        $query->bind_param("ssiss", $name, $synopsis, $length, $age_rating, $trailer_link);
-        $query->execute();
-    }
-
     public function update (mysqli $mysqli) {
         $sql = sprintf("UPDATE %s SET name = ?, synopsis = ?, length = ?, age_rating = ?, trailer_link = ? WHERE id = ?", static::$table);
 
@@ -44,8 +40,4 @@ class Movie extends Model {
         $query->bind_param("ssissi", $this->name, $this->synopsis, $this->length, $this->age_rating, $this->trailer_link, $this->id);
         $query->execute();
     }
-
-    // public static function getGenre (mysqli $mysqli) {
-
-    // }
 }
