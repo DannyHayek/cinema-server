@@ -13,8 +13,12 @@ try{
     $data["phone_number"] = $_POST["phone_number"];
     $data["password"] = $_POST["password"];
     $data["age"] = $_POST["age"];
-    $data["favorite_genre_id"] = $_POST["favorite_genre_id"];
 
+    if ($_POST["favorite_genre_id"] == 0) {
+        $data["favorite_genre_id"] = null;
+    } else {
+        $data["favorite_genre_id"] = $_POST["favorite_genre_id"];
+    }
 
     $user = new User($data);
 

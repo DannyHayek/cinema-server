@@ -2,8 +2,7 @@
 require "../connection/connection.php";
 
 try {
-    $queries = [
-    ];
+    $queries = [];
 
 
     foreach($queries as $q) {
