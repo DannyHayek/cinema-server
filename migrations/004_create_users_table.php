@@ -10,6 +10,7 @@ try {
           password VARCHAR(255) NOT NULL, 
           age INT (3),
           favorite_genre_id INT(11), 
+          UNIQUE (email), 
           FOREIGN KEY (favorite_genre_id) REFERENCES genres(id) 
           )";
 

@@ -18,6 +18,8 @@ abstract class Model {
 
         $data = $query->get_result()->fetch_assoc();
 
+        // echo json_encode($data);
+
         return $data ? new static($data) : null;
     }
 
