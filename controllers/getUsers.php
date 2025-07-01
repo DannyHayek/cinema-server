@@ -47,11 +47,28 @@ echo json_encode(getAllUsers($mysqli));
 function getAllUsers ($mysqli) {
     $users = User::selectAll($mysqli);
 
+    $temp["users"] = [];
     $response["users"] = [];
 
     foreach($users as $u) {
-        // echo json_encode($u);
-        $response["users"][] = $u->toArray();
+        $temp["users"][] = $u->toArray();
+    }
+
+    foreach($temp["users"] as $u) {
+        echo($u[6]);
+        if ($u[6] == 0) {
+            $favGenre = null;
+            $u[7] = $u[6];
+            $u[6] = $favGenre;
+            $response["users"][] = $u;
+        } else {
+            $favGenre = Genre::select($mysqli, $u[6])->toArray();
+            $u[7] = $u[6];
+            $u[6] = $favGenre[1];
+            $response["users"][] = $u;
+        }
+        echo (json_encode($favGenre));
+
     }
 
     return $response;
