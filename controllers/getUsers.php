@@ -33,7 +33,7 @@ if(isset($_GET["email"])){
     foreach($users["users"] as $u) {
         
        if ($u[2] == $email) {
-            return json_encode($u);
+            echo json_encode($u);
        }
     }
 
