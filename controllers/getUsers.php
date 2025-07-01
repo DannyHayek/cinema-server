@@ -26,16 +26,14 @@ if(isset($_GET["id"])) {
 if(isset($_GET["email"])){
     $users = getAllUsers($mysqli);
     $email = $_GET["email"];
-    $response["users"] = "";
+    $response["user"] = "";
+
+    // echo json_encode($users);
 
     foreach($users["users"] as $u) {
-
+        
        if ($u[2] == $email) {
-            $favGenre = Genre::select($mysqli, $u[6]);
-            $u[7] = $u[6];
-            $u[6] = $favGenre->toArray()[1];
-            echo json_encode($u);
-            return;
+            return json_encode($u);
        }
     }
 
@@ -55,7 +53,6 @@ function getAllUsers ($mysqli) {
     }
 
     foreach($temp["users"] as $u) {
-        echo($u[6]);
         if ($u[6] == 0) {
             $favGenre = null;
             $u[7] = $u[6];
@@ -67,8 +64,6 @@ function getAllUsers ($mysqli) {
             $u[6] = $favGenre[1];
             $response["users"][] = $u;
         }
-        echo (json_encode($favGenre));
-
     }
 
     return $response;
