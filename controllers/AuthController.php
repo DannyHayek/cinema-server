@@ -1,9 +1,9 @@
 <?php 
 
-require(__DIR__ . "/BaseController.php");
+require(__DIR__ . "/UserController.php");
 
 
-class AuthController extends BaseController {
+class AuthController extends UserController {
 
 
     public function login(){
@@ -15,7 +15,6 @@ class AuthController extends BaseController {
             $users = User::selectAll($mysqli);
             $users_array = UserService::usersToArray($users); 
 
-            // echo json_encode($users_array);
 
             $email = $_GET["email"];
             $response["user"] = "";
@@ -30,6 +29,16 @@ class AuthController extends BaseController {
 
             return;
             }
+        } catch (Throwable $e) {
+            echo $e;
+        }
+    }
+
+    public function signup() {
+        global $mysqli;
+
+        try {
+            UserController::createUser();
         } catch (Throwable $e) {
             echo $e;
         }

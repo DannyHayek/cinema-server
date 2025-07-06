@@ -2,7 +2,7 @@
 
 $apis = [
     '/login'         => ['controller' => 'AuthController', 'method' => 'login'],
-    '/signup'         => ['controller' => 'UserController', 'method' => 'signup'],
+    '/signup'         => ['controller' => 'AuthController', 'method' => 'signup'],
 
     '/get_users'         => ['controller' => 'UserController', 'method' => 'getAllUsers'],
     '/create_user'         => ['controller' => 'UserController', 'method' => 'createUser'],
