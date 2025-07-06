@@ -66,25 +66,27 @@ class UserController extends BaseController {
 
 
 
-    // public function updateArticle(){
-    //     global $mysqli;
+    public function updateUser(){
+        global $mysqli;
 
-    //     try {
-    //         $id =  $_POST["id"];
+        try {
+            $id =  $_POST["id"];
 
-    //         $params["id"] = $id;
-    //         $params["name"] = $_POST["name"];
-    //         $params["author"] = $_POST["author"];
-    //         $params["description"] = $_POST["description"];
-    //         $params["category_id"] = $_POST["category_id"];
+            $params["id"] = $id;
+            $params["name"] = $_POST["name"];
+            $params["email"] = $_POST["email"];
+            $params["phone_number"] = $_POST["phone_number"];
+            $params["password"] = $_POST["password"];
+            $params["age"] = $_POST["age"];
+            $params["favorite_genre_id"] = $_POST["favorite_genre_id"];
 
-    //         Article::update($mysqli, $params, $id);
-    //         echo "Updating article $id...";
-    //     } catch (Throwable $e) {
-    //         echo $e;
-    //     }
+            User::update($mysqli, $params, $id);
+            echo "Updating user $id...";
+        } catch (Throwable $e) {
+            echo $e;
+        }
         
-    // }
+    }
 
     // public function getArticlesByCategory() {
     //     global $mysqli;
