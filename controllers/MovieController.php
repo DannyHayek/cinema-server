@@ -3,23 +3,23 @@
 require(__DIR__ . "/BaseController.php");
 
 
-class UserController extends BaseController {
+class MovieController extends BaseController {
 
 
-    public function getAllUsers(){
+    public function getAllMovies(){
         global $mysqli;
 
         try {
             if(!isset($_GET["id"])){
-                        $users = User::selectAll($mysqli);
-                        $users_array = UserService::usersToArray($users); 
-                        echo ResponseService::success_response($users_array);
+                        $movies = Movie::selectAll($mysqli);
+                        $movies_array = UserService::usersToArray($movies); 
+                        echo ResponseService::success_response($movies_array);
                         return;
                     }
 
                     $id = $_GET["id"];
-                    $user = User::select($mysqli, $id)->toArray();
-                    echo ResponseService::success_response($user);
+                    $movie = Movie::select($mysqli, $id)->toArray();
+                    echo ResponseService::success_response($movie);
                     return;
         } catch (Throwable $e) {
             echo $e;
