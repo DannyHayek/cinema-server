@@ -113,6 +113,5 @@ class UserController extends BaseController {
             echo $e;
         }
         
-
     }
 }
