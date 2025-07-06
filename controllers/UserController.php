@@ -38,6 +38,7 @@ class UserController extends BaseController {
             $users = User::selectAll($mysqli);
             $users_array = UserService::usersToArray($users); 
             echo ResponseService::success_response($users_array);
+            
             return;
 
         } catch (Throwable $e) {
