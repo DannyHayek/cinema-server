@@ -64,8 +64,6 @@ class UserController extends BaseController {
     }
 
 
-
-
     public function updateUser(){
         global $mysqli;
 
@@ -88,37 +86,33 @@ class UserController extends BaseController {
         
     }
 
-    // public function getArticlesByCategory() {
-    //     global $mysqli;
+    public function login() {
+        global $mysqli;
 
-    //     try {
-    //         $cat_id = $_GET["id"];
+        try {
+            if(isset($_GET["email"])){
+                $users = User::selectAll($mysqli);
+                $users_array = UserService::usersToArray($users); 
 
-    //         $articles = Article::all($mysqli);
+                // echo json_encode($users_array);
 
-    //         $artByCat = [];
-    //         $articleCategories = [];
+                $email = $_GET["email"];
+                $response["user"] = "";
 
-    //         foreach($articles as $a) {
-    //             if ($a->toArray()[4] == $cat_id) {
-    //                 $artByCat[] = $a->toArray();
-    //             }
-    //         }
 
-    //         $categories = Category::all($mysqli);
+                foreach($users_array as $u) {
+                    if ($u[2] == $email) {
+                            echo ResponseService::success_response($u);
+                            break;
+                    }
+                }
 
-    //         foreach ($categories as $c) {
-    //             if ($c->toArray()[0] == $cat_id) {
-    //                 $artByCat[] = $c->toArray()[1];
-    //                 break;
-    //             }
-    //         }
-
-    //         echo json_encode($artByCat); 
-    //     } catch (Throwable $e) {
-    //         echo $e;
-    //     }
+                return;
+            }
+        } catch (Throwable $e) {
+            echo $e;
+        }
         
 
-    // }
+    }
 }
