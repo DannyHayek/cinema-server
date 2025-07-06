@@ -17,7 +17,7 @@ try{
 
     $movie = new Movie($data);
 
-    $movie->update($mysqli);
+    // $movie->update($mysqli);
 
     echo "Movie updated successfully";
 

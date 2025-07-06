@@ -13,12 +13,44 @@ class MovieController extends BaseController {
             if(!isset($_GET["id"])){
                         $movies = Movie::selectAll($mysqli);
                         $movies_array = UserService::usersToArray($movies); 
+
                         echo ResponseService::success_response($movies_array);
                         return;
                     }
 
                     $id = $_GET["id"];
                     $movie = Movie::select($mysqli, $id)->toArray();
+
+
+                    $genresRaw = MovieGenre::selectAll($mysqli, $id);
+                    $genreID = [];
+                    $genreNames = [];
+
+                    foreach($genresRaw as $g) {
+                        $genreID[] = $g->toArray();
+                    }
+
+                    foreach($genreID as $g) {
+                        $genreNames[] = Genre::select($mysqli, $g[1])->toArray();
+                    }
+
+                    $movie[] = $genreNames;
+
+
+                    $actorsRaw = MovieActor::selectAll($mysqli, $id);
+                    $actorID = [];
+                    $actorNames = [];
+
+                    foreach($actorsRaw as $a) {
+                        $actorID[] = $a->toArray();
+                    }
+
+                    foreach($actorID as $a) {
+                        $actorNames[] = Actor::select($mysqli, $a[1])->toArray();
+                    }
+
+                    $movie[] = $actorNames;
+                    
                     echo ResponseService::success_response($movie);
                     return;
         } catch (Throwable $e) {
@@ -27,15 +59,15 @@ class MovieController extends BaseController {
     }
 
     
-    public function createUser(){
+    public function createMovie(){
         global $mysqli;
 
         try {
             $name = $_POST["name"];
-            $params = ["", $name, $_POST["email"], $_POST["phone_number"], $_POST["password"], $_POST["age"], $_POST["favorite_genre_id"]];
+            $params = ["", $name, $_POST["synopsis"], $_POST["length"], $_POST["age_rating"], $_POST["trailer_link"], ""];
 
-            User::insert($mysqli, $params);
-            echo "Creating new user $name..."; 
+            Movie::insert($mysqli, $params);
+            echo "Creating new movie $name..."; 
         } catch (Throwable $e) {
             echo $e;
         }
@@ -43,19 +75,19 @@ class MovieController extends BaseController {
     }
 
 
-    public function deleteAllUsers(){
+    public function deleteAllMovies(){
         global $mysqli;
 
         try {
            if(!isset($_GET["id"])){
-            User::delete($mysqli, 0);
-            echo ResponseService::success_response("Deleting all users...");
+            Movie::delete($mysqli, 0);
+            echo ResponseService::success_response("Deleting all movies...");
             return;
         }
 
         $id = $_GET["id"];
-        User::delete($mysqli, $id);
-        echo ResponseService::success_response("Deleting user $id...");
+        Movie::delete($mysqli, $id);
+        echo ResponseService::success_response("Deleting movie $id...");
         return; 
         } catch (Throwable $e) {
             echo $e;
@@ -64,22 +96,21 @@ class MovieController extends BaseController {
     }
 
 
-    public function updateUser(){
+    public function updateMovie(){
         global $mysqli;
 
         try {
             $id =  $_POST["id"];
 
             $params["id"] = $id;
-            $params["name"] = $_POST["name"];
-            $params["email"] = $_POST["email"];
-            $params["phone_number"] = $_POST["phone_number"];
-            $params["password"] = $_POST["password"];
-            $params["age"] = $_POST["age"];
-            $params["favorite_genre_id"] = $_POST["favorite_genre_id"];
+            $params["synopsis"] = $_POST["synopsis"];
+            $params["length"] = $_POST["length"];
+            $params["age_rating"] = $_POST["age_rating"];
+            $params["trailer_link"] = $_POST["trailer_link"];
+            $params["poster_url"] = $_POST["poster_url"];
 
-            User::update($mysqli, $params, $id);
-            echo "Updating user $id...";
+            Movie::update($mysqli, $params, $id);
+            echo "Updating movie $id...";
         } catch (Throwable $e) {
             echo $e;
         }
