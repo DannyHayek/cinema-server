@@ -43,25 +43,25 @@ class UserController extends BaseController {
     }
 
 
-    // public function deleteAllArticles(){
-    //     global $mysqli;
+    public function deleteAllUsers(){
+        global $mysqli;
 
-    //     try {
-    //        if(!isset($_GET["id"])){
-    //         Article::delete($mysqli, 0);
-    //         echo ResponseService::success_response("Deleting all articles...");
-    //         return;
-    //     }
+        try {
+           if(!isset($_GET["id"])){
+            User::delete($mysqli, 0);
+            echo ResponseService::success_response("Deleting all users...");
+            return;
+        }
 
-    //     $id = $_GET["id"];
-    //     Article::delete($mysqli, $id);
-    //     echo ResponseService::success_response("Deleting article $id...");
-    //     return; 
-    //     } catch (Throwable $e) {
-    //         echo $e;
-    //     }
+        $id = $_GET["id"];
+        User::delete($mysqli, $id);
+        echo ResponseService::success_response("Deleting user $id...");
+        return; 
+        } catch (Throwable $e) {
+            echo $e;
+        }
         
-    // }
+    }
 
 
 
