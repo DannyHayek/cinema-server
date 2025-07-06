@@ -1,7 +1,9 @@
 <?php
 
 $apis = [
-    '/login'         => ['controller' => 'AuthController', 'method' => 'login'],
-    '/signup'         => ['controller' => 'AuthController', 'method' => 'signup'],
+    '/login'         => ['controller' => 'UserController', 'method' => 'login'],
+    '/signup'         => ['controller' => 'UserController', 'method' => 'signup'],
+
+    '/get_users'         => ['controller' => 'UserController', 'method' => 'getAllUsers'],
 ];
 
