@@ -10,17 +10,36 @@ class UserController extends BaseController {
         global $mysqli;
 
         try {
-            if(!isset($_GET["id"])){
-                        $users = User::selectAll($mysqli);
-                        $users_array = UserService::usersToArray($users); 
-                        echo ResponseService::success_response($users_array);
-                        return;
-                    }
+            if(isset($_GET["id"])){
+                $id = $_GET["id"];
+                $user = User::select($mysqli, $id)->toArray();
+                echo ResponseService::success_response($user);
+                return;
+            }
 
-                    $id = $_GET["id"];
-                    $user = User::select($mysqli, $id)->toArray();
-                    echo ResponseService::success_response($user);
+            if(isset($_GET["email"])){
+                $users = User::selectAll($mysqli);
+                $users_array = UserService::usersToArray($users); 
+
+
+                $email = $_GET["email"];
+                $response["user"] = "";
+
+
+                foreach($users_array as $u) {
+                    if ($u[2] == $email) {
+                            echo ResponseService::success_response($u);
+                            break;
+                    }
+                }
                     return;
+            }
+
+            $users = User::selectAll($mysqli);
+            $users_array = UserService::usersToArray($users); 
+            echo ResponseService::success_response($users_array);
+            return;
+
         } catch (Throwable $e) {
             echo $e;
         }
