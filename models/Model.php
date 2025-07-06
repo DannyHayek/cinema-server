@@ -59,10 +59,12 @@ abstract class Model {
 
         
     }
+    
 
     public static function insert (mysqli $mysqli, array $params) {
         $question_marks = "";
         $num = count($params);
+        $bind = "";
 
         for ($i = 0; $i < $num; $i++) {
             if ($i == $num - 1){
@@ -70,24 +72,50 @@ abstract class Model {
             } else {
                 $question_marks .= "?,";
             }
+
+            if (is_int($params[$i])) {
+                $bind .= "i";
+            } else {
+                $bind .= "s";
+            }
         }
 
         $sql = sprintf("INSERT INTO %s VALUES (%s)",
         static::$table, $question_marks);
     
         $query = $mysqli->prepare($sql);
-        $query->bind_param(static::$bind, ...$params);
+        $query->bind_param($bind, ...$params);
         $query->execute();
     }
 
-    // public function update (mysqli $mysqli) {
-    //     $sql = sprintf("UPDATE %s SET name = ?, email = ?, phone_number = ?, password = ?, age = ?, favorite_genre_id = ? WHERE %s = ?",
-    //     static::$table, static::$primary_key);
 
-    //     $query = $mysqli->prepare($sql);
-    //     $query->bind_param("ssssiii", $this->name, $this->email, $this->phone_number, $this->password, $this->age, $this->genre_id, $this->id);
-    //     $query->execute();
-    // }
+    public static function update (mysqli $mysqli, array $params, int $id) {
+        $keys = array_keys($params);
+        $values = array_values($params);
+        $values[] = $id;
+
+        $bind = "";
+
+        for ($i = 0; $i < count($keys); $i++) {
+            $keys[$i] .= " = ?";
+
+            if (is_int($values[$i])) {
+                $bind .= "i";
+            } else {
+                $bind .= "s";
+            }
+        }
+
+        $bind .= "i";
+
+        $keys = implode(", " , $keys);
+
+        $sql = sprintf("UPDATE %s SET %s WHERE %s = ?", static::$table, $keys, static::$primary_key);
+
+        $query = $mysqli->prepare($sql);
+        $query->bind_param($bind, ...$values);
+        $query->execute();
+    }
 
     public static function delete (mysqli $mysqli, int $id) {
         $sql = sprintf("DELETE FROM %s WHERE %s = ?", static::$table, static::$primary_key);

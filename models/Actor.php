@@ -18,8 +18,4 @@ class Actor extends Model {
         return [$this->id, $this->name];
     }
 
-    public function update(mysqli $mysqli){
-        //This function will not be used for this table
-    }
-
 }

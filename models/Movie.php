@@ -34,11 +34,4 @@ class Movie extends Model {
         return [$this->id, $this->name, $this->synopsis, $this->length, $this->age_rating, $this->trailer_link, $this->poster_url];
     }
 
-    public function update (mysqli $mysqli) {
-        $sql = sprintf("UPDATE %s SET name = ?, synopsis = ?, length = ?, age_rating = ?, trailer_link = ? WHERE id = ?", static::$table);
-
-        $query = $mysqli->prepare($sql);
-        $query->bind_param("ssissi", $this->name, $this->synopsis, $this->length, $this->age_rating, $this->trailer_link, $this->id);
-        $query->execute();
-    }
 }
