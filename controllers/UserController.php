@@ -26,6 +26,22 @@ class UserController extends BaseController {
         }
     }
 
+    
+    public function createUser(){
+        global $mysqli;
+
+        try {
+            $name = $_POST["name"];
+            $params = ["", $name, $_POST["email"], $_POST["phone_number"], $_POST["password"], $_POST["age"], $_POST["favorite_genre_id"]];
+
+            User::insert($mysqli, $params);
+            echo "Creating new user $name..."; 
+        } catch (Throwable $e) {
+            echo $e;
+        }
+        
+    }
+
 
     // public function deleteAllArticles(){
     //     global $mysqli;
@@ -48,20 +64,7 @@ class UserController extends BaseController {
     // }
 
 
-    // public function addArticle(){
-    //     global $mysqli;
 
-    //     try {
-    //        $name = $_POST["name"];
-    //         $params = ["", $name, $_POST["author"], $_POST["description"], $_POST["category_id"]];
-
-    //         Article::insert($mysqli, $params);
-    //         echo "Creating new article $name..."; 
-    //     } catch (Throwable $e) {
-    //         echo $e;
-    //     }
-        
-    // }
 
     // public function updateArticle(){
     //     global $mysqli;
